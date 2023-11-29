@@ -6,7 +6,7 @@ from tkinter.filedialog import *
 from solar_vis import *
 from solar_model import *
 from solar_input import *
-
+window_height = 500
 perform_execution = False
 """Флаг цикличности выполнения расчёта"""
 
