@@ -14,6 +14,21 @@ class CelestialBody(ABC):
     R = 5
     color = "red"
     image = None
+    trackedParams = []
+
+    def track_params(self, params):
+        res = []
+        for p in params():
+            if p == 'x':
+                res.append((p, self.x))
+            elif p == 'y':
+                res.append((p, self.y))
+            elif p == 'Vx':
+                res.append((p, self.Vx))
+            elif p == 'Vy':
+                res.append((p, self.Vy))
+            else:
+                print('Unknown parameter, will not commence on tracking')
 
 
 class Star(CelestialBody):

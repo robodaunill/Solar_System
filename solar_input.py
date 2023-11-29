@@ -61,6 +61,9 @@ def parse_obj_parameters(line, cel_body):
     cel_body.y = float(parsed_line[5])
     cel_body.Vx = float(parsed_line[6])
     cel_body.Vy = float(parsed_line[7])
+    if len(parsed_line) > 8 and parsed_line[8] == 'TRACK':
+        cel_body.trackedParams = parsed_line[9::]
+
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
@@ -80,11 +83,6 @@ def write_space_objects_data_to_file(output_filename, space_objects):
                 out_file.write(f"Star {obj.R} {obj.color} {obj.m} {obj.x} {obj.y} {obj.Vx} {obj.Vy}\n")
             elif isinstance(obj, Planet):
                 out_file.write(f"Planet {obj.R} {obj.color} {obj.m} {obj.x} {obj.y} {obj.Vx} {obj.Vy}\n")
-
-
-# FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
-#SURE BRO
-
 
 
 if __name__ == "__main__":
