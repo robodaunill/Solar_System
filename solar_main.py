@@ -84,9 +84,9 @@ def open_file_dialog():
     calculate_scale_factor(max_distance)
 
     for obj in space_objects:
-        if obj.type == 'star':
+        if type(obj) == Star:
             create_star_image(space, obj)
-        elif obj.type == 'planet':
+        elif type(obj) == Planet:
             create_planet_image(space, obj)
         else:
             raise AssertionError()

@@ -20,45 +20,19 @@ def read_space_objects_data_from_file(input_filename):
             if len(line.strip()) == 0 or line[0] == '#':
                 continue  # пустые строки и строки-комментарии пропускаем
             object_type = line.split()[0].lower()
-            if object_type == "star":  # FIXED: do the same for planet
-                star = Star()
-                parse_star_parameters(line, star)
-                objects.append(star)
-            elif object_type == "planet":
-                planet = Planet()
-                parse_planet_parameters(line, planet)
-                objects.append(planet)
+            if object_type == 'star':
+                cel_body = Star()
+                parse_obj_parameters(line, cel_body)
+                objects.append(cel_body)
+
+
             else:
                 print("Unknown space object")
 
     return objects
 
 
-def parse_star_parameters(line, star):
-    """Считывает данные о звезде из строки.
-    Входная строка должна иметь слеюущий формат:
-    Star <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
-
-    Здесь (x, y) — координаты зведы, (Vx, Vy) — скорость.
-    Пример строки:
-    Star 10 red 1000 1 2 3 4
-
-    Параметры:
-
-    **line** — строка с описание звезды.
-    **star** — объект звезды.
-    """
-    parsed_line = line.split() #FIXED
-    star.r = float(parsed_line[1])
-    star.color = parsed_line[2]
-    star.m = float(parsed_line[3])
-    star.x = float(parsed_line[4])
-    star.y = float(parsed_line[5])
-    star.vx = float(parsed_line[6])
-    star.vy = float(parsed_line[7])
-
-
-def parse_planet_parameters(line, planet):
+def parse_obj_parameters(line, cel_body):
     """Считывает данные о планете из строки.
     Предполагается такая строка:
     Входная строка должна иметь слеюущий формат:
@@ -74,13 +48,13 @@ def parse_planet_parameters(line, planet):
     **planet** — объект планеты.
     """
     parsed_line = line.split() #FIXED
-    planet.r = float(parsed_line[1])
-    planet.color = parsed_line[2]
-    planet.m = float(parsed_line[3])
-    planet.x = float(parsed_line[4])
-    planet.y = float(parsed_line[5])
-    planet.vx = float(parsed_line[6])
-    planet.vy = float(parsed_line[7])
+    cel_body.R = float(parsed_line[1])
+    cel_body.color = parsed_line[2]
+    cel_body.m = float(parsed_line[3])
+    cel_body.x = float(parsed_line[4])
+    cel_body.y = float(parsed_line[5])
+    cel_body.Vx = float(parsed_line[6])
+    cel_body.Vy = float(parsed_line[7])
 
 
 def write_space_objects_data_to_file(output_filename, space_objects):
