@@ -6,7 +6,7 @@ from tkinter.filedialog import *
 from solar_vis import *
 from solar_model import *
 from solar_input import *
-
+from solar_stats import StatProcessor
 
 perform_execution = False
 """Флаг цикличности выполнения расчёта"""
@@ -26,6 +26,8 @@ time_step = None
 space_objects = []
 """Список космических объектов."""
 
+stat_processor = StatProcessor()  # STAT COLLECTOR
+
 
 def execution():
     """Функция исполнения -- выполняется циклически, вызывая обработку всех небесных тел,
@@ -35,6 +37,7 @@ def execution():
     """
     global physical_time
     global displayed_time
+    global stat_processor
     recalculate_space_objects_positions(space_objects, time_step.get())
     for body in space_objects:
         update_object_position(space, body)
@@ -83,6 +86,7 @@ def open_file_dialog():
     space_objects = read_space_objects_data_from_file(in_filename)
     max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in space_objects])
     calculate_scale_factor(max_distance)
+    calculate_scale_factor(max_distance)
 
     for obj in space_objects:
         if type(obj) == Star:
@@ -129,10 +133,12 @@ def main():
 
     time_step = tkinter.DoubleVar()
     time_step.set(1)
+    time_step.trace_add('write', lambda name, typ, par: stat_processor.upd())
     time_step_entry = tkinter.Entry(frame, textvariable=time_step)
     time_step_entry.pack(side=tkinter.LEFT)
 
     time_speed = tkinter.DoubleVar()
+    time_speed.trace_add('write', lambda name, typ, par: stat_processor.upd())
     scale = tkinter.Scale(frame, variable=time_speed, orient=tkinter.HORIZONTAL)
     scale.pack(side=tkinter.LEFT)
 
