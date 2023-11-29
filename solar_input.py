@@ -33,23 +33,22 @@ def read_space_objects_data_from_file(input_filename):
 
 
 def parse_obj_parameters(line, cel_body):
-    """Считывает данные о планете из строки.
-    Предполагается такая строка:
+    """Считывает данные о звезде из строки.
     Входная строка должна иметь слеюущий формат:
-    Planet <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
+    Star <радиус в пикселах> <цвет> <масса> <x> <y> <Vx> <Vy>
 
-    Здесь (x, y) — координаты планеты, (Vx, Vy) — скорость.
+    Здесь (x, y) — координаты зведы, (Vx, Vy) — скорость.
     Пример строки:
-    Planet 10 red 1000 1 2 3 4
+    Star 10 red 1000 1 2 3 4
 
     Параметры:
 
-    **line** — строка с описание планеты.
-    **planet** — объект планеты.
+    **line** — строка с описание звезды.
+    **star** — объект звезды.
     """
-    parsed_line = line.split() #FIXED
+    parsed_line = line.split()  # FIXED
     cel_body.R = float(parsed_line[1])
-    cel_body.color = parsed_line[2]
+    cel_body.color = str(parsed_line[2])
     cel_body.m = float(parsed_line[3])
     cel_body.x = float(parsed_line[4])
     cel_body.y = float(parsed_line[5])
@@ -74,6 +73,7 @@ def write_space_objects_data_to_file(output_filename, space_objects):
                 out_file.write(f"Star {obj.r} {obj.color} {obj.m} {obj.x} {obj.y} {obj.Vx} {obj.Vy}\n")
             elif isinstance(obj, Planet):
                 out_file.write(f"Planet {obj.r} {obj.color} {obj.m} {obj.x} {obj.y} {obj.Vx} {obj.Vy}\n")
+
 
 # FIXME: хорошо бы ещё сделать функцию, сохранающую статистику в заданный файл...
 
