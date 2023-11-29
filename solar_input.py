@@ -28,10 +28,6 @@ def read_space_objects_data_from_file(input_filename):
                 cel_body = Planet()
                 parse_obj_parameters(line, cel_body)
                 objects.append(cel_body)
-            elif object_type == 'planet':
-                cel_body = Star()
-                parse_obj_parameters(line, cel_body)
-                objects.append(cel_body)
 
             else:
                 print("Unknown space object")
@@ -61,8 +57,9 @@ def parse_obj_parameters(line, cel_body):
     cel_body.y = float(parsed_line[5])
     cel_body.Vx = float(parsed_line[6])
     cel_body.Vy = float(parsed_line[7])
-    if len(parsed_line) > 8 and parsed_line[8] == 'TRACK':
-        cel_body.trackedParams = parsed_line[9::]
+    cel_body.name = parsed_line[8]
+    if len(parsed_line) > 9 and parsed_line[9] == 'TRACK':
+        cel_body.trackedParams = parsed_line[10::]
 
 
 

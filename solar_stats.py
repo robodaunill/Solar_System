@@ -10,7 +10,6 @@ class StatProcessor:
         self.tick = 0
         self.tickMod = 1
         self.data = []
-        print('updated')
 
     def double_size(self):
         self.tick = 0

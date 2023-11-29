@@ -12,23 +12,26 @@ class CelestialBody(ABC):
     Fx = 0
     Fy = 0
     R = 5
+    name = ''
     color = "red"
     image = None
     trackedParams = []
 
-    def track_params(self, params):
-        res = []
-        for p in params():
+    def track_params(self):
+        res = dict()
+
+        for p in self.trackedParams:
             if p == 'x':
-                res.append((p, self.x))
+                res.update({self.name+'_'+p: self.x})
             elif p == 'y':
-                res.append((p, self.y))
+                res.update({self.name+'_'+p: self.y})
             elif p == 'Vx':
-                res.append((p, self.Vx))
+                res.update({self.name+'_'+p: self.Vx})
             elif p == 'Vy':
-                res.append((p, self.Vy))
-            else:
-                print('Unknown parameter, will not commence on tracking')
+                res.update({self.name+'_'+p: self.Vy})
+
+        return res
+
 
 
 class Star(CelestialBody):

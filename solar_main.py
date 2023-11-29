@@ -39,8 +39,11 @@ def execution():
     global displayed_time
     global stat_processor
     recalculate_space_objects_positions(space_objects, time_step.get())
+    stat_data = dict()
     for body in space_objects:
         update_object_position(space, body)
+        stat_data.update()
+        body.track_params()
     physical_time += time_step.get()
     displayed_time.set("%.1f" % physical_time + " seconds gone")
 
