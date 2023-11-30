@@ -2,6 +2,7 @@
 # license: GPLv3
 
 import tkinter
+import matplotlib.pyplot as plt
 from tkinter.filedialog import *
 from solar_vis import *
 from solar_model import *
@@ -42,8 +43,8 @@ def execution():
     stat_data = dict()
     for body in space_objects:
         update_object_position(space, body)
-        stat_data.update()
-        body.track_params()
+        stat_data.update(body.track_params())
+    stat_processor(physical_time, stat_data)
     physical_time += time_step.get()
     displayed_time.set("%.1f" % physical_time + " seconds gone")
 
@@ -62,6 +63,24 @@ def start_execution():
 
     execution()
     print('Started execution...')
+
+
+def show_stats():
+    time, params = stat_processor.return_stats()
+    n = math.floor(math.sqrt(len(params))) + 1
+    i = 1
+    fig = plt.figure(figsize=(16, 8))
+    ax = []
+    for elem in params.keys():
+        print(elem)
+        plt.subplot(n, n, i)
+        plt.plot(time, params.get(elem), '-b')
+        plt.ylabel(elem)
+        plt.xlabel('time, s')
+        i += 1
+    plt.show()
+
+    print(params)
 
 
 def stop_execution():
@@ -134,6 +153,9 @@ def main():
     start_button = tkinter.Button(root, text="Start", command=start_execution, width=6)
     start_button.pack(side=tkinter.TOP)
 
+    stat_button = tkinter.Button(root, text="Show stats", command=show_stats, width=10)
+    stat_button.pack()
+
     time_step = tkinter.DoubleVar()
     time_step.set(1)
     time_step.trace_add('write', lambda name, typ, par: stat_processor.upd())
@@ -142,6 +164,7 @@ def main():
 
     time_speed = tkinter.DoubleVar()
     time_speed.trace_add('write', lambda name, typ, par: stat_processor.upd())
+    time_speed.trace_add('write', lambda name, typ, par: print(time_speed.get()))
     scale = tkinter.Scale(frame, variable=time_speed, orient=tkinter.HORIZONTAL)
     scale.pack(side=tkinter.LEFT)
 
