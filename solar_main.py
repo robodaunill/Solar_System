@@ -66,21 +66,20 @@ def start_execution():
 
 
 def show_stats():
-    time, params = stat_processor.return_stats()
-    n = math.floor(math.sqrt(len(params))) + 1
-    i = 1
-    fig = plt.figure(figsize=(16, 8))
-    ax = []
-    for elem in params.keys():
-        print(elem)
-        plt.subplot(n, n, i)
-        plt.plot(time, params.get(elem), '-b')
-        plt.ylabel(elem)
-        plt.xlabel('time, s')
-        i += 1
-    plt.show()
+    if not len(stat_processor.data) == 0:
 
-    print(params)
+        time, params = stat_processor.return_stats()
+        n = math.floor(math.sqrt(len(params) - 1)) + 1
+        i = 1
+        fig = plt.figure(figsize=(16, 8))
+        ax = []
+        for elem in params.keys():
+            plt.subplot(n, n, i)
+            plt.plot(time, params.get(elem), '-b')
+            plt.ylabel(elem)
+            plt.xlabel('time, s')
+            i += 1
+        plt.show()
 
 
 def stop_execution():
@@ -101,6 +100,7 @@ def open_file_dialog():
     """
     global space_objects
     global perform_execution
+    global stat_processor
     perform_execution = False
     for obj in space_objects:
         space.delete(obj.image)  # удаление старых изображений планет
@@ -109,7 +109,7 @@ def open_file_dialog():
     max_distance = max([max(abs(obj.x), abs(obj.y)) for obj in space_objects])
     calculate_scale_factor(max_distance)
     calculate_scale_factor(max_distance)
-
+    stat_processor = StatProcessor()
     for obj in space_objects:
         if type(obj) == Star:
             create_star_image(space, obj)
@@ -164,7 +164,6 @@ def main():
 
     time_speed = tkinter.DoubleVar()
     time_speed.trace_add('write', lambda name, typ, par: stat_processor.upd())
-    time_speed.trace_add('write', lambda name, typ, par: print(time_speed.get()))
     scale = tkinter.Scale(frame, variable=time_speed, orient=tkinter.HORIZONTAL)
     scale.pack(side=tkinter.LEFT)
 

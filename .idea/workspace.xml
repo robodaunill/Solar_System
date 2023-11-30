@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d653c44a-aa73-4804-961f-c8dd3cbb17b3" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/double_star.txt" beforeDir="false" afterPath="$PROJECT_DIR$/double_star.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/one_satellite.txt" beforeDir="false" afterPath="$PROJECT_DIR$/one_satellite.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/solar_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/solar_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/solar_stats.py" beforeDir="false" afterPath="$PROJECT_DIR$/solar_stats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/solar_system.txt" beforeDir="false" afterPath="$PROJECT_DIR$/solar_system.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
